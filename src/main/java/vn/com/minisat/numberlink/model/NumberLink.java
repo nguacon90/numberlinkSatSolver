@@ -1,30 +1,44 @@
 package vn.com.minisat.numberlink.model;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class NumberLink {
-	private int[][] matrix;
+	private int rows; // height
+	private int cols; //width
 	
-	public NumberLink(int x, int y) {
-		this.matrix = new int[x][y];
+	private List<List<Integer>> fields;
+	
+	public NumberLink() {
+		setFields(new ArrayList<>());
 	}
 
-	public void setMatrix(int[][] matrix) {
-		this.matrix = matrix;
+	public List<List<Integer>> getFields() {
+		return fields;
 	}
 
-	public int[][] getMatrix() {
-		return matrix;
+	public void setFields(List<List<Integer>> fields) {
+		this.fields = fields;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+
+	public void setCols(int cols) {
+		this.cols = cols;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				stringBuilder.append(matrix[i][j]).append(" ");
-			}
-			stringBuilder.append("\n");
-		}
-		return stringBuilder.toString();
+		return "NumberLink {fields=" + fields + "}";
 	}
 }
