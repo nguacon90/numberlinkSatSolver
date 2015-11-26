@@ -1,5 +1,6 @@
 package vn.com.minisat.numberlink;
 
+import org.sat4j.specs.ISolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,7 +44,7 @@ public class Application implements CommandLineRunner {
 //			System.out.println("-----------------------------------------");
 			
 			NumberLink readNumberLink = transformerService.readNumberLink(numberlinkInput);
-			
+//			ISolver solver = cnfConverterService.generateSat(readNumberLink);
 			System.out.println(readNumberLink);
 			
 		} catch (Exception e) {
