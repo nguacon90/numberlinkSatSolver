@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -18,28 +16,29 @@ public class TransformerServiceImpl implements TransformerService{
 	public NumberLink readNumberLink(String filename) throws IOException, URISyntaxException {
 		NumberLink numberLink = new NumberLink();
 		BufferedReader br = new BufferedReader(new FileReader(filename));
+		int[][] inputs = null;
 		try {
 		    String line = br.readLine();
-		    int i = -1;
+		    int i = 0;
 		    while (line != null) {
 		    	String[] coordinate = line.split(" +");
-		    	if(numberLink != null && i > numberLink.getCols() - 1) {
+		    	if(numberLink != null && i > numberLink.getCol()) {
 		    		throw new RuntimeException("Invalid format numberlink");
 		    	}
 		    		
-		    	if(i == -1) {
+		    	if(i == 0) {
 		    		if(coordinate == null || coordinate.length != 2) {
 		    			throw new RuntimeException("Invalid format numberlink");
 		    		}
-		    		numberLink.setRows(Integer.valueOf(coordinate[0]));
-		    		numberLink.setCols(Integer.valueOf(coordinate[1]));
+		    		numberLink.setRow(Integer.valueOf(coordinate[0]));
+		    		numberLink.setCol(Integer.valueOf(coordinate[1]));
+		    		inputs = new int[numberLink.getRow()+1][numberLink.getCol()+1];
 		    	} else {
-		    		List<Integer> rows = new ArrayList<>();
-		    		for (int j = 0; j < coordinate.length; j++) {
-		    			rows.add(Integer.valueOf(coordinate[j]));
+		    		
+		    		for (int j = 1; j < coordinate.length; j++) {
+		    			inputs[i][j] = Integer.valueOf(coordinate[j-1]);
 					}
 		    		
-		    		numberLink.getFields().add(rows);
 		    	}
 		    	
 		    	i++;
@@ -50,6 +49,7 @@ public class TransformerServiceImpl implements TransformerService{
 		    br.close();
 		}
 		
+		numberLink.setInputs(inputs);
 		return numberLink;
 	}
 

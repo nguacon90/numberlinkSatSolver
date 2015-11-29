@@ -1,44 +1,63 @@
 package vn.com.minisat.numberlink.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NumberLink {
-	private int rows; // height
-	private int cols; //width
-	
-	private List<List<Integer>> fields;
-	
-	public NumberLink() {
-		setFields(new ArrayList<>());
+
+	private int[][] inputs;
+	private int row;
+	private int col;
+	private static int maxNum = 0;
+
+	public int[][] getInputs() {
+		return inputs;
 	}
 
-	public List<List<Integer>> getFields() {
-		return fields;
+	public void setInputs(int[][] inputs) {
+		this.inputs = inputs;
 	}
 
-	public void setFields(List<List<Integer>> fields) {
-		this.fields = fields;
+	public int getRow() {
+		return row;
 	}
 
-	public int getCols() {
-		return cols;
+	public void setRow(int row) {
+		this.row = row;
 	}
 
-	public void setCols(int cols) {
-		this.cols = cols;
+	public int getCol() {
+		return col;
 	}
 
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
+	public void setCol(int col) {
+		this.col = col;
 	}
 
 	@Override
 	public String toString() {
-		return "NumberLink {fields=" + fields + "}";
+		StringBuilder builder = new StringBuilder("");
+		builder.append(row).append(" \t").append(col).append(" \n");
+		for (int i = 1; i < inputs.length; i++) {
+			for (int j = 1; j < inputs[i].length; j++) {
+				builder.append(inputs[i][j]).append(" \t");
+			}
+			builder.append(" \n");
+		}
+		
+		return builder.toString();
+	}
+
+	public int getMaxNum() {
+		if(maxNum != 0) {
+			return maxNum;
+		}
+		
+		for (int i = 1; i < inputs.length; i++) {
+			for (int j = 1; j < inputs[i].length; j++) {
+				if(inputs[i][j] > maxNum) {
+					maxNum = inputs[i][j];
+				}
+			}
+		}
+		
+		return maxNum;
 	}
 }

@@ -1,11 +1,10 @@
 package vn.com.minisat.numberlink.service;
 
-import java.util.List;
-
 import vn.com.minisat.numberlink.model.NumberLink;
+import vn.com.minisat.numberlink.model.SatEncoding;
 
 public interface CNFConverterService {
 
-	List<List<Integer>> generateSat(NumberLink numberLink);
+	SatEncoding generateSat(NumberLink numberLink);
 	
 }
