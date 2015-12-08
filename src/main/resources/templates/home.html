@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Numberlink</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://static-01.vndirect.com.vn/js/stockpickadmin/jquery.2.1.3.min.js"></script>
+    <script src="https://static-01.vndirect.com.vn/js/stockpickadmin/angular.1.3.8.min.js"></script>
+    <script th:src="@{/js/app.js?timestamp=@time_param@}"></script>
+    <link th:href="@{/css/app.css?timestamp=@time_param@}" rel="stylesheet" media="screen" />
+</head>
+<body ng-app="numberlink">
+    <table ng-controller="numberlinkController">
+    	<tbody>
+    		<tr ng-repeat="cell in cells">
+    			<td ng-repeat="item in cell">
+    				<span ng-bind="item.value == 0 ? '' : item.value" class="cell-value"></span>
+    				<span ng-repeat="p in getClass(item);" class="{{p}}"></span>
+    			</td>
+    		</tr>
+    	</tbody>
+    </table>
+</body>
+
+</html>

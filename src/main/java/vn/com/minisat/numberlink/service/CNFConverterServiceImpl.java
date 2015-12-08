@@ -297,4 +297,10 @@ public class CNFConverterServiceImpl implements CNFConverterService {
 		return (i - 1) * (NUM_OF_DIRECTION + numberLink.getMaxNum()) * numberLink.getCol()
 				+ (j - 1) * (NUM_OF_DIRECTION + numberLink.getMaxNum()) + value;
 	}
+
+	@Override
+	public int getValueOf(int row, int col, int positionValue, NumberLink numberLink) {
+		return positionValue - (row - 1) * (NUM_OF_DIRECTION + numberLink.getMaxNum()) * numberLink.getCol() -
+				(col - 1) * (NUM_OF_DIRECTION + numberLink.getMaxNum());
+	}
 }

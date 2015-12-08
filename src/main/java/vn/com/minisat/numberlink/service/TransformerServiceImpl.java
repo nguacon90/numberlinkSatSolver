@@ -35,7 +35,7 @@ public class TransformerServiceImpl implements TransformerService{
 		    		inputs = new int[numberLink.getRow()+1][numberLink.getCol()+1];
 		    	} else {
 		    		
-		    		for (int j = 1; j < coordinate.length; j++) {
+		    		for (int j = 1; j <= coordinate.length; j++) {
 		    			inputs[i][j] = Integer.valueOf(coordinate[j-1]);
 					}
 		    		

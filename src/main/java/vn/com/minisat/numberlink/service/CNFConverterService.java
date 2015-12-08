@@ -7,4 +7,5 @@ public interface CNFConverterService {
 
 	SatEncoding generateSat(NumberLink numberLink);
 	
+	int getValueOf(int row, int col, int positionValue, NumberLink numberLink);
 }
