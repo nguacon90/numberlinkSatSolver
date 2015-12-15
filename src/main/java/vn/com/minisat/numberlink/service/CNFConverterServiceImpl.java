@@ -156,7 +156,6 @@ public class CNFConverterServiceImpl implements CNFConverterService {
 			j0 = DIR[k][1];
 
 			atleastOneDirection = (-computePosition(i, j, k, numberLink)) + " ";
-			// Consider the compatability between adjacent patterns
 			switch (k) {
 			case LEFT:
 				atleastOneDirection += computePosition(i + i0, j + j0, RIGHT, numberLink) + " ";
