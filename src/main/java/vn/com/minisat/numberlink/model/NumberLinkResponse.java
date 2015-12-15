@@ -9,6 +9,7 @@ public class NumberLinkResponse implements Serializable{
 	private List<List<Cell>> cells;
 	private int rowNum;
 	private int colNum;
+	private long times;
 	private boolean isSatisfiable;
 	public NumberLinkResponse() {
 		cells = new ArrayList<>();
@@ -36,5 +37,11 @@ public class NumberLinkResponse implements Serializable{
 	}
 	public void setSatisfiable(boolean isSatisfiable) {
 		this.isSatisfiable = isSatisfiable;
+	}
+	public long getTimes() {
+		return times;
+	}
+	public void setTimes(long times) {
+		this.times = times;
 	}
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" ng-app="numberlink">
 <head>
     <title>Numberlink</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -8,17 +8,50 @@
     <script th:src="@{/js/app.js?timestamp=@time_param@}"></script>
     <link th:href="@{/css/app.css?timestamp=@time_param@}" rel="stylesheet" media="screen" />
 </head>
-<body ng-app="numberlink">
-    <table ng-controller="numberlinkController">
-    	<tbody>
-    		<tr ng-repeat="cell in cells">
-    			<td ng-repeat="item in cell">
-    				<span ng-bind="item.value == 0 ? '' : item.value" class="cell-value"></span>
-    				<span ng-repeat="p in getClass(item);" class="{{p}}"></span>
-    			</td>
-    		</tr>
-    	</tbody>
-    </table>
+<body ng-controller="numberlinkController">
+	<div><button class="btn btn-solve" ng-click="resolve();">Tìm đáp án</button></div>
+	<ul>
+		<li ng-repeat="input in inputs">
+			<button class="btn btn-input" ng-bind="input" ng-click="load(input);"></button>
+		</li>
+	</ul>
+	<div>
+		<div>Thời gian : <span ng-bind="times"></span></div>
+		<hr/>
+		<div>Kết quả: <span ng-bind="result"></span></div>
+		<table ng-if="!showResult">
+	    	<tbody>
+	    		<tr ng-repeat="cell in cells">
+	    			<td ng-repeat="item in cell">
+	    				<svg>
+	    					<text x="15" y="25" fill="#333" ng-bind="item.value != 0 ? item.value : ''"></text>
+	    				</svg>
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+	    <table ng-if="showResult">
+	    	<tbody>
+	    		<tr ng-if="sat" ng-repeat="cell in cells">
+	    			<td ng-repeat="item in cell">
+		    			<svg ng-if="item.value != 0">
+				            <line ng-if="isUp(item);" x1="20" y1="0" x2="20" y2="10" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isRight(item);" x1="25" y1="20" x2="40" y2="20" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isDown(item);" x1="20" y1="40" x2="20" y2="25" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isLeft(item);" x1="15" y1="20" x2="0" y2="20" style="stroke: #000; stroke-width:1" />
+				            <text x="15" y="25" fill="#333" ng-bind="item.value"></text>
+		          		</svg>
+		    			<svg ng-if="item.value == 0">
+				            <line ng-if="isUp(item);" x1="20" y1="0" x2="20" y2="20" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isRight(item);" x1="20" y1="20" x2="40" y2="20" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isDown(item);" x1="20" y1="40" x2="20" y2="20" style="stroke: #000; stroke-width:1" />
+				            <line ng-if="isLeft(item);" x1="20" y1="20" x2="0" y2="20" style="stroke: #000; stroke-width:1" />
+		          		</svg>
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+    </div>
 </body>
 
 </html>

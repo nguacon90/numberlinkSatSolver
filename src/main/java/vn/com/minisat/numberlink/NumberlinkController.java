@@ -2,6 +2,8 @@ package vn.com.minisat.numberlink;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.com.minisat.numberlink.model.Cell;
@@ -22,7 +25,6 @@ import vn.com.minisat.numberlink.service.SATSolverService;
 import vn.com.minisat.numberlink.service.TransformerService;
 
 @RestController
-@RequestMapping("numberlink")
 public class NumberlinkController {
 	@Autowired
 	private TransformerService transformerService;
@@ -32,11 +34,34 @@ public class NumberlinkController {
 
 	@Autowired
 	private SATSolverService satSolverService;
-
-	@RequestMapping(value = "/resolve", method = RequestMethod.GET)
-	public ResponseEntity<NumberLinkResponse> resolve() {
+	
+	@RequestMapping(value = "/numberlink", method = RequestMethod.GET)
+	public ResponseEntity<NumberLinkResponse> load(@RequestParam("input") String input) {
 		NumberLinkResponse response = new NumberLinkResponse();
-		String numberlinkInput = Thread.currentThread().getContextClassLoader().getResource("numberlink1.in").getPath();
+		String numberlinkInput = Thread.currentThread().getContextClassLoader().getResource(input + ".in").getPath();
+		NumberLink numberLink = null;
+		try {
+			numberLink = transformerService.readNumberLink(numberlinkInput);
+			int[][] board = numberLink.getInputs();
+			for (int row = 1; row < board.length; row++) {
+				List<Cell> cells = new ArrayList<Cell>();
+				for (int col = 1; col < board[row].length; col++) {
+					Cell cell = new Cell(row, col, board[row][col]);
+					cells.add(cell);
+				}
+				response.getCells().add(cells);
+			}
+		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<NumberLinkResponse>(response, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/numberlink/resolve", method = RequestMethod.GET)
+	public ResponseEntity<NumberLinkResponse> resolve(@RequestParam("input") String input) {
+		long startTimes = System.currentTimeMillis();
+		NumberLinkResponse response = new NumberLinkResponse();
+		String numberlinkInput = Thread.currentThread().getContextClassLoader().getResource(input + ".in").getPath();
 		String cnfOut = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "cnf.in";
 
 		NumberLink numberLink = null;
@@ -87,9 +112,12 @@ public class NumberlinkController {
 					response.getCells().add(cells);
 				}
 			}
+			long endTimes = System.currentTimeMillis();
+			response.setTimes(endTimes - startTimes);
 			response.setSatisfiable(problem.isSatisfiable());
 			response.setColNum(numberLink.getCol());
 			response.setRowNum(numberLink.getRow());
+			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

@@ -9,67 +9,50 @@ body {
 
 table {
 	border-collapse: collapse;
-	margin: 40px auto;
+	margin: 0px auto;
 }
 
 table td {
-	padding: 20px 0;
+    padding: 20px;
+    position: relative;
 	border: 1px solid #c3c3c3;
 }
 
-.class-1-2 {
-	background: rgba(0, 0, 0, 0) url("../images/horizon.png") no-repeat scroll 0 0 / 100% 100%;
-    display: block;
-    height: 5px;
-    position: relative;
-    top: -12px;
-    width: 59px;
+td svg {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-td span.class-1 {
-	background: rgba(0, 0, 0, 0) url("../images/horizon.png") no-repeat scroll 0 0 / 100% 100%;
-    display: block;
-    height: 5px;
-    position: relative;
-    top: -12px;
-    width: 28px;
-}
-.cell-value {
-	margin: 23px;
-}
-td span.class-2 {
-	background: rgba(0, 0, 0, 0) url("../images/horizon.png") no-repeat scroll 0 0 / 100% 100%;
-    display: block;
-    height: 5px;
-    left: 46px;
-    margin-left: -15px;
-    position: relative;
-    top: -12px;
-    width: 28px;
+.btn {
+	margin: 20px 0;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
 }
 
-td span.class-4 {
-	background: rgba(0, 0, 0, 0) url("../images/straight.png") no-repeat scroll 0 0 / 100% 100%;
-    display: block;
-    height: 5px;
-    left: 46px;
-    margin-left: -15px;
-    position: relative;
-    top: -12px;
-    width: 28px;
+.btn-solve {
+	background-color: #0C7D0C;
 }
 
-/* td span.class-3::BEFORE {
-	content: "|";
-	display: block;
-	position: relative;
-	height: 0;
-	top: -38px;
+.btn-solve:HOVER {
+	background-color: #119911;
 }
 
-td span.class-4::AFTER {
-	content: "|";
-	display: block;
-	position: relative;
-	height: 0;
-} */
+.btn-input {
+	background-color: #c3c3c3;
+	color: #333;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;'
+}
+
+ul li {
+	display: inline-block;
+	margin-left: 5px;
+}
